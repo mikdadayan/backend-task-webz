@@ -1,0 +1,16 @@
+# Development Dockerfile
+FROM node:16.13.1-alpine3.12 AS development
+
+WORKDIR /src/app
+
+COPY --chown=node:node package*.json ./
+
+RUN npm install
+
+COPY --chown=node:node . .
+
+USER node
+
+EXPOSE ${NODE_CONTAINER_PORT}
+
+# CMD ["npm", "run", "dev"]
