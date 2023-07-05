@@ -74,6 +74,7 @@ A successful response will contain the following:
     // Other users...
   ]
 }
+```
 
 ### Get User's Posts
 
@@ -106,7 +107,7 @@ A successful response will contain the following:
     // Other posts...
   ]
 }
-
+```
 ### Delete Post
 
 Delete a specific post by its ID.
