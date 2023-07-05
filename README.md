@@ -50,6 +50,7 @@ Retrieve a list of all users.
 
 - **Endpoint**: `/users`
 - **Method**: GET
+- **Example**: `http://localhost:3500/api/users?page=1&limit=4`
 
 #### Request Parameters
 
@@ -82,6 +83,7 @@ Retrieve a list of posts for a specific user.
 
 - **Endpoint**: `/posts/:userId`
 - **Method**: GET
+- **Example**: `http://localhost:3500/api/posts/2?page=1&limit=4`
 
 #### Request Parameters
 
@@ -114,6 +116,7 @@ Delete a specific post by its ID.
 
 - **Endpoint**: `/posts/:postId`
 - **Method**: DELETE
+- **Example**: `http://localhost:3500/api/posts/64a6016a139994f37dea43fa`
 
 #### Request Parameters
 
