@@ -1,6 +1,6 @@
 # Task for the backend
 
-- Introduction
+Introduction
 
 You're about to work on a task that encompasses 4 main components:
 
@@ -12,7 +12,7 @@ Database: A MongoDB database Docker container
 
 Backend Server: This is your own internal API, built on top of typescript and node to communicate with both the external data source and the local MongoDB database
 
-- Task Details
+Task Details
 
 * Part 1: User Table
 
