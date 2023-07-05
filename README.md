@@ -62,7 +62,7 @@ Retrieve a list of all users.
 
 A successful response will contain the following:
 
-````json
+```json
 {
   "users": [
     {
@@ -74,7 +74,7 @@ A successful response will contain the following:
     // Other users...
   ]
 }
-```
+````
 
 ### Get User's Posts
 
@@ -107,7 +107,7 @@ A successful response will contain the following:
     // Other posts...
   ]
 }
-```
+````
 ### Delete Post
 
 Delete a specific post by its ID.
@@ -129,4 +129,4 @@ A successful response will contain the following:
 {
   "message": "Post deleted successfully"
 }
-```
+````
