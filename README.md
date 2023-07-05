@@ -1,6 +1,6 @@
 # Task for the backend
 
-- Introduction
+Introduction
 
 You're about to work on a task that encompasses 4 main components:
 
@@ -12,7 +12,7 @@ Database: A MongoDB database Docker container
 
 Backend Server: This is your own internal API, built on top of typescript and node to communicate with both the external data source and the local MongoDB database
 
-- Task Details
+Task Details
 
 * Part 1: User Table
 
@@ -62,7 +62,7 @@ Retrieve a list of all users.
 
 A successful response will contain the following:
 
-````json
+```json
 {
   "users": [
     {
@@ -74,6 +74,7 @@ A successful response will contain the following:
     // Other users...
   ]
 }
+````
 
 ### Get User's Posts
 
@@ -106,7 +107,7 @@ A successful response will contain the following:
     // Other posts...
   ]
 }
-
+````
 ### Delete Post
 
 Delete a specific post by its ID.
