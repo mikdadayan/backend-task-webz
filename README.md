@@ -38,7 +38,7 @@ OR
 
 1. `git clone git@github.com:mikdadayan/task-backend.git`
 2. `cd REPO_NAME`
-3. - `docker compose -f docker-compose.prod.yml`
+3. - `docker compose -f docker-compose.dev.yml`
      OR
    - `docker-compose -f docker-compose.prod.yml`
 
