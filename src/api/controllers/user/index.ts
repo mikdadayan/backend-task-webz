@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import axios from "axios";
 
-import { sendSuccessResponse } from "../../utils/createResponse";
+import { sendSuccessResponse } from "../../../utils/createResponse";
 
 export const getAllUsers: RequestHandler = async (req, res, next) => {
   try {

@@ -12,7 +12,16 @@ services:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - fetch-posts-network
-
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      # , roles: [db_owner]
+    # command: sh -c "mongo --eval 'use $MONGODB_DATABASE'; mongo --eval 'db.createUser({user:$MONGODB_USER, pwd:$MONGODB_PASSWORD, roles:[dbOwner]})';"
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "'db.runCommand({ ping: 1 })'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   fetch-posts-api:
     depends_on:
       - mongodb
@@ -31,6 +40,15 @@ services:
       - fetch-posts-network
     volumes:
       - .:/src/app
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl --fail http://localhost:$NODE_CONTAINER_PORT/ || exit 1",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   mongodb_database:

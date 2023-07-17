@@ -1,8 +1,12 @@
 import { RequestHandler } from "express";
-import axios from "axios";
-
-import { sendSuccessResponse } from "../../utils/createResponse";
-import Post from "../../models/Post";
+import { sendSuccessResponse } from "../../../utils/createResponse";
+import {
+  fetchPostsFromDatabase,
+  fetchPostsFromAPI,
+  storePostsInDatabase,
+  findPostById,
+  deletePostFromDatabase,
+} from "../../../utils/api";
 
 export const getUsersPosts: RequestHandler = async (req, res, next) => {
   try {
@@ -11,10 +15,7 @@ export const getUsersPosts: RequestHandler = async (req, res, next) => {
     const limit = parseInt(req.query.limit as string) || 10;
     const skip = (page - 1) * limit;
 
-    const existingPosts = await Post.find({ userId })
-      .skip(skip)
-      .limit(limit)
-      .exec();
+    const existingPosts = await fetchPostsFromDatabase(userId, skip, limit);
 
     if (existingPosts.length > 0) {
       return sendSuccessResponse(
@@ -23,42 +24,39 @@ export const getUsersPosts: RequestHandler = async (req, res, next) => {
         200,
         { posts: existingPosts }
       );
-    } else {
-      const response = await axios.get(
-        `${process.env.BASE_FETCH_API}/posts?userId=${userId}`
-      );
-      const postsData = response.data;
-      await Post.insertMany(postsData);
-
-      return sendSuccessResponse(
-        res,
-        "Fetching user posts from the external API...",
-        200,
-        {
-          posts: postsData.slice(skip, skip + limit),
-        }
-      );
     }
+
+    const postsData = await fetchPostsFromAPI(userId);
+    await storePostsInDatabase(postsData);
+
+    const paginatedPosts = postsData.slice(skip, skip + limit);
+    return sendSuccessResponse(
+      res,
+      "Fetching user posts from the external API...",
+      200,
+      { posts: paginatedPosts }
+    );
   } catch (error) {
-    let err = error as Error;
     console.error("Error fetching and storing user posts:", error);
-    next(err);
+    next(error);
   }
 };
 
 export const deletePost: RequestHandler = async (req, res, next) => {
   try {
     const { postId } = req.params;
-    const existingPost = await Post.findById(postId);
+    const existingPost = await findPostById(postId);
+
     if (!existingPost) {
       res.status(404);
       throw new Error("Post not found");
     }
-    await existingPost.deleteOne();
+
+    await deletePostFromDatabase(existingPost);
     return res.json({ message: "Post deleted successfully" });
   } catch (error) {
     let err = error as Error;
-    console.log(`Error: ${err.message}`);
+    console.error(error);
     next(err);
   }
 };
