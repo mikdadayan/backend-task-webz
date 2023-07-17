@@ -6,7 +6,7 @@ import userRouter from "./routes/userRouter";
 import postRouter from "./routes/postRouter";
 
 import connectDB from "../config/db";
-import { errorHandler } from "./utils/errorHandler";
+import { errorHandler } from "../utils/errorHandler";
 
 dotenv.config();
 
